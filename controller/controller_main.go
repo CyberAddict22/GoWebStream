@@ -19,9 +19,8 @@ func StartRPIO() {
 	// Start rpio
 	err := rpio.Open()
 	if err != nil {
-		fmt.Println("Error starting GPIO, error:", err)
+		fmt.Println("Error starting RPIO, error:", err)
 	}
-	defer rpio.Close()
 	pinl1.Output()
 	pinl2.Output()
 	pinr1.Output()
@@ -30,6 +29,11 @@ func StartRPIO() {
 	defer pinl2.Low()
 	defer pinr1.Low()
 	defer pinr2.Low()
+}
+
+//StopRPIO disables RPIO all pins
+func StopRPIO() {
+	rpio.Close()
 }
 
 // RunRobot sends commands to Robot

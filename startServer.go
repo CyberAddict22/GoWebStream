@@ -26,6 +26,12 @@ const (
 	storeCookieTime = time.Minute * 60
 )
 
+var (
+	// Default time between frames and server port
+	timeBetweenFrames = 100 * time.Millisecond
+	serverPort        = 9000
+)
+
 // Page contains page structure to parse by page template
 type Page struct {
 	Title string
@@ -129,24 +135,28 @@ func signInHandler(w http.ResponseWriter, r *http.Request) {
 
 func controlHandler(w http.ResponseWriter, r *http.Request) {
 	command := r.URL.Path[len("/run/"):]
-	fmt.Println(command)
+	// fmt.Println("Command number is:", command)
 	com, _ := strconv.Atoi(command)
 	controller.RunRobot(com)
 }
 
 func main() {
+
 	// To know how it goes
 	fmt.Println("Begin...")
-	timeBetweenFrames := 100 * time.Millisecond
-	serverPort := 9000
-	if len(os.Args) == 2 {
+
+	// Args parsing
+	if len(os.Args) > 1 {
 		intTimeBetweenFrames, _ := strconv.Atoi(os.Args[1])
 		timeBetweenFrames = time.Duration(intTimeBetweenFrames) * time.Millisecond
-	} else if len(os.Args) > 2 {
-		serverPort, _ = strconv.Atoi(os.Args[2])
+	}
+	if len(os.Args) > 2 {
+		serverPort, _ := strconv.Atoi(os.Args[2])
 	}
 
+	// Start RPIO
 	controller.StartRPIO()
+	defer controller.StopRPIO()
 
 	// Read video from camera
 	go streamvideo.StartReadingVideo(timeBetweenFrames)
