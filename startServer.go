@@ -174,5 +174,7 @@ func main() {
 	http.HandleFunc("/main", mainHandler)
 	http.Handle("/data/", staticFilesHandler)
 	http.HandleFunc("/run/", controlHandler)
+
+	fmt.Println("Start server on", serverPort, "port and time between frames", timeBetweenFrames)
 	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(serverPort), nil))
 }
