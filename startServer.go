@@ -151,7 +151,7 @@ func main() {
 		timeBetweenFrames = time.Duration(intTimeBetweenFrames) * time.Millisecond
 	}
 	if len(os.Args) > 2 {
-		serverPort, _ := strconv.Atoi(os.Args[2])
+		serverPort, _ = strconv.Atoi(os.Args[2])
 	}
 
 	// Start RPIO
