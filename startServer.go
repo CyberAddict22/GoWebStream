@@ -13,10 +13,10 @@ import (
 	"strconv"
 	"time"
 
-	"./auth"
-	"./conmanager"
-	"./controller"
-	"./streamvideo"
+	"github.com/cyad22/gowebstream/auth"
+	"github.com/cyad22/gowebstream/conmanager"
+	"github.com/cyad22/gowebstream/controller"
+	"github.com/cyad22/gowebstream/streamvideo"
 	// "os"
 	// "image/color"
 )
